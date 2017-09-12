@@ -8,9 +8,9 @@ int sumTwoIntPtrs(int * a, int * b)
 void closed1()
 {
 	/*
-	int * thingy1 = new int(1);
-	float * thingy2 = new float(5.5f);
-	bool * thingy3 = new bool(true);
+	int * thingy1 = new int[8];
+	float * thingy2 = new float[8];
+	bool * thingy3 = new bool[true];
 	*/
 
 	/*

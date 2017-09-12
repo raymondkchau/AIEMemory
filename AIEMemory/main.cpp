@@ -7,17 +7,22 @@ int sumTwoIntPtrs(int * a, int * b)
 
 void closed1()
 {
-	/*
-	int * thingy1 = new int[8];
-	float * thingy2 = new float[8];
-	bool * thingy3 = new bool[true];
-	*/
+	int * thingy1 = new int(8);
+	float * thingy2 = new float(8);
+	bool * thingy3 = new bool(true);
 
-	/*
-	int * thingy4[];
-	float * thingy5[];
-	bool * thingy6[]
-	*/
+	int * thingy4 = new int[8]{ 1, 2, 3, 4, 5, 6, 7, 8 };
+	//Bugged? When I input numbers like 3.1, I get Error 83 error C2398: Conversion from 'double' to 'float' requires a narrowing conversion.
+	float * thingy5 = new float[8]{ 8, 4, 2, 6, 5, 3, 1, 3 };
+	bool * thingy6 = new bool[8]{ true, false, true, false, true, false, true, false };
+
+	delete thingy1;
+	delete thingy2;
+	delete thingy3;
+
+	delete[] thingy1;
+	delete[] thingy2;
+	delete[] thingy3;
 }
 
 void arrPop(int * arr, int size)
@@ -60,6 +65,7 @@ void main()
 	*/
 
 	//closed1();
+
 
 	// == OPEN ==
 	//creates an array of 100 elements

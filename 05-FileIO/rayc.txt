@@ -1,0 +1,3 @@
+Name: Raymond
+Age: 20
+Favorite Color: White

@@ -3,6 +3,7 @@
 #include <string>
 #include <random>
 #include <time.h>
+#include "entity.h"
 
 int closed1()
 {
@@ -51,6 +52,7 @@ int closed2()
 	std::string fileName;
 	std::cout << "Where would you like to save this?" << std::endl;
 	std::cin >> fileName;
+	std::cin.ignore(1000, '\n');
 
 	std::fstream file;
 	file.open(fileName, std::ios_base::out);
@@ -61,19 +63,22 @@ int closed2()
 		std::cout << std::endl;
 		return -1;
 	}
-			
+	
 	file.seekp(0, std::ios_base::end);
 
 	std::cout << "What's your first name?" << std::endl;
 	std::cin >> fileName;
+	std::cin.ignore(1000, '\n');
 	file << "Name: " << fileName << std::endl;
 
 	std::cout << "How old are you?" << std::endl;
 	std::cin >> fileName;
+	std::cin.ignore(1000, '\n');
 	file << "Age: " << fileName << std::endl;
 
 	std::cout << "What's your favorite color?" << std::endl;
 	std::cin >> fileName;
+	std::cin.ignore(1000, '\n');
 	file << "Favorite Color: " << fileName << std::endl;
 
 	std::cout << "Thanks! Check your file for your results." << std::endl;
@@ -87,6 +92,7 @@ int closed2()
 
 void open1()
 {
+	/*
 	char * text[5];
 	text[0] = { "September 13th, 2017" };
 	text[1] = { "--------------------" };
@@ -104,7 +110,7 @@ void open1()
 			if (RNG <= 2)
 			{
 				char change[128];
-				//gonna assume it works since I can't exactly check. Won't let me run strcpy.
+				//gonna assume it works since I can't exactly check. Won't let me run strcpy or strcpy_s
 				std::strcpy(text[i], change);
 				change[j] = '█';
 				std::strcpy(change, text[i]);
@@ -130,6 +136,109 @@ void open1()
 	file << text[2] << std::endl;
 	file << text[3] << std::endl;
 	file << text[4] << std::endl;
+	*/
+}
+
+void open2()
+{
+	char end;
+	while (true)
+	{
+		std::cout << "Howdy! The following is from commaSep.txt" << std::endl;
+		std::fstream file;
+		file.open("commaSep.txt", std::ios_base::in);
+
+		if (file.fail())
+		{
+			std::cout << "Error: File not found" << std::endl;
+			std::cout << std::endl;
+			break;
+		}
+
+		std::string buffer;
+		std::cout << "{";
+		while (std::getline(file, buffer))
+		{
+			std::cout << buffer;
+			std::cout << ", ";
+		}
+		std::cout << "}";
+
+		std::cout << std::endl;
+
+		file.clear();
+		file.flush();
+		file.close();
+
+		std::cin >> end;
+	}
+}
+
+void open3()
+{
+	std::fstream entityStream;
+	entityStream.open("monsters.txt");
+
+	if (entityStream.fail())
+	{
+		std::cout << "Can't open file." << std::endl;
+	}
+
+	int entityCount = 0;
+	Entity entities[100];
+
+	while (true)
+	{
+		std::string buf;
+		bool entityFound = false;
+		//seek to next entity
+		while (std::getline(entityStream, buf))
+		{
+			if (buf[0] == '@')
+			{
+				entityFound = true;
+				break;
+			}
+		}
+
+		//exit if no entity found
+		if (!entityFound)
+		{
+			break;
+		}
+
+		//load data into the array of entities
+		Entity &curEntity = entities[entityCount];
+
+		std::getline(entityStream, buf);
+		curEntity.hitpoints = stof(buf);
+		std::getline(entityStream, buf);
+		curEntity.armor = stof(buf);
+
+		std::getline(entityStream, buf);
+		curEntity.strength = stof(buf);
+		std::getline(entityStream, buf);
+		curEntity.defense = stof(buf);
+		std::getline(entityStream, buf);
+		curEntity.agility = stof(buf);
+		std::getline(entityStream, buf);
+		curEntity.luck = stof(buf);
+
+		entityCount++;
+
+		std::cout << curEntity.hitpoints << std::endl;
+		std::cout << curEntity.armor << std::endl;
+		std::cout << std::endl;
+
+		//exit if no entity found
+		if(entityCount >= 100)
+		{
+			break;
+		}
+	}
+
+	//keep program running
+	while (true);
 }
 
 int main()
@@ -182,7 +291,9 @@ int main()
 
 	//closed1();
 	//closed2();
-	open1();
+	//open1();
+	//open2();
+	open3();
 
 	while (true); // Keeps the program going
 }

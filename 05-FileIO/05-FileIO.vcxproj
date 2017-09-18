@@ -112,6 +112,15 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="famousLines.txt" />
+    <Text Include="importantMessage.txt" />
+    <Text Include="monsters.txt" />
+    <Text Include="rayc.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="entity.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

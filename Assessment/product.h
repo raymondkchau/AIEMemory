@@ -38,10 +38,10 @@ float tax(float subtotal)
 	return total;
 }
 
-float change(float total)
+float changeFunc(float total)
 {
 	std::string input;
-	float payment;
+	float payment = 0;
 
 	while (true)
 	{
@@ -53,6 +53,7 @@ float change(float total)
 		payment = std::stof(input.c_str(), &sz);
 
 		total -= payment;
+		total = roundf(total * 100) / 100;
 
 		if (total <= 0)
 		{
@@ -64,7 +65,7 @@ float change(float total)
 		}
 		else if (total > 0)
 		{
-			std::cout << "Additional payment required." << std::endl;
+			std::cout << "An additional $" << total << " required." << std::endl;
 		}
 	}
 

@@ -117,6 +117,9 @@
     <ClInclude Include="clearScreen.h" />
     <ClInclude Include="product.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="receipt2017-9-19.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

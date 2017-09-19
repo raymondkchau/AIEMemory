@@ -1,9 +1,13 @@
-1 - Chicken Tendies - $2.5
-2 - Mac and Cheese - 2 Pack - $5.99
 3 - Doritos and Mountain Dew Gamer Pack - $13.37
 4 - Spam - $2.5
-Subtotal: $24.36
-Tax:      $2.31
-Total:    $26.67
-Change:   $26.67
+5 - That cuddy old shoe in the back - $1.99
+
+Subtotal: $17.86
+Tax:      $1.7
+Total:    $19.56
+
+Change:   $80.44
 Thank you!
+
+Transaction Canceled/Returned to Menu
+

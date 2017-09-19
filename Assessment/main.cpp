@@ -61,6 +61,14 @@ void main()
 					std::cout << "Input product name or barcode." << std::endl;
 					std::cin >> input;
 					std::cin.ignore(100, '\n');
+
+					for (int i = 0; i < food.barcode; i++)
+					{
+						if (food.barcode == input || food.item[i].pName == input)
+						{
+							//do something with this
+						}
+					}
 				}
 				break;
 

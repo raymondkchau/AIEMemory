@@ -16,9 +16,11 @@ struct Products
 	int barcode;
 };
 
+//initializing things
+Products food;
+
 void initializeProducts()
 {
-	Products food;
 	food.category = "Food";
 	food.barcode = 5;
 	food.item = new Product[food.barcode];

@@ -5,9 +5,13 @@
 
 void main()
 {
+	//initialize
 	bool fileFound = false;
 	std::fstream cashier;
 	std::string input;
+	initializeProducts();
+
+	std::cout << food.item[0].pName << std::endl;
 
 	cashier.open("receipts.txt", std::ios_base::out);
 

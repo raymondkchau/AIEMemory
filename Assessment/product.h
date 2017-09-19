@@ -22,9 +22,51 @@ Products food;
 void initializeProducts()
 {
 	food.category = "Food";
-	food.barcode = 5;
+	food.barcode = 6;
 	food.item = new Product[food.barcode];
 	food.item[0] = { "Cheesy Nuts", 1.50f };
 	food.item[1] = { "Chicken Tendies", 2.50f };
 	food.item[2] = { "Mac and Cheese - 2 Pack", 5.99f };
+	food.item[3] = { "Doritos and Mountain Dew Gamer Pack", 13.37f };
+	food.item[4] = { "Spam", 2.50f };
+	food.item[5] = { "That cuddy old shoe in the back", 1.99f };
+}
+
+float tax(float subtotal)
+{
+	float total = roundf((subtotal * 1.095) * 100) / 100;
+	return total;
+}
+
+float change(float total)
+{
+	std::string input;
+	float payment;
+
+	while (true)
+	{
+		std::cout << "Input payment: ";
+		std::cin >> input;
+		std::cin.ignore(100, '\n');
+
+		std::string::size_type sz;
+		payment = std::stof(input.c_str(), &sz);
+
+		total -= payment;
+
+		if (total <= 0)
+		{
+			if (total != 0)
+			{
+				total *= -1;
+			}
+			return total;
+		}
+		else if (total > 0)
+		{
+			std::cout << "Additional payment required." << std::endl;
+		}
+	}
+
+	return total;
 }

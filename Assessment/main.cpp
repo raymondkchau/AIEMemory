@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <ctime>
 #include "product.h"
+#include "clearScreen.h"
 
 void main()
 {
@@ -10,11 +12,26 @@ void main()
 	std::fstream cashier;
 	std::string input;
 	initializeProducts();
+	float subtotal = 0;
 
-	std::cout << food.item[0].pName << std::endl;
+	//initialize time stuff
+	struct tm buf; //stores time
+	time_t t = time(NULL); //gets time now
+	localtime_s(&buf, &t);
+	std::string year = std::to_string(buf.tm_year + 1900);
+	std::string month = std::to_string(buf.tm_mon + 1);
+	std::string day = std::to_string(buf.tm_mday);
+	std::string rName = "receipt";
+	rName += year;
+	rName += "-";
+	rName += month;
+	rName += "-";
+	rName += day;
+	rName += ".txt";
 
-	cashier.open("receipts.txt", std::ios_base::out);
+	cashier.open(rName, std::ios_base::out);
 
+	//This part is probably useless as hell
 	if (cashier.fail())
 	{
 		std::cout << "File not found." << std::endl;
@@ -40,6 +57,7 @@ void main()
 				std::cout << "2 - Show Receipts" << std::endl;
 				std::cin >> input;
 				std::cin.ignore(100, '\n');
+				clearScreen();
 
 				if (input == "1")
 				{
@@ -55,34 +73,74 @@ void main()
 				}
 
 			case 1:
+				std::cout << "Page: Sales" << std::endl;
+				std::cout << "Input product name or barcode." << std::endl;
+				std::cout << "Please make sure you are inputing the right information,\nthere is no going back." << std::endl;
+				std::cout << "Input \"end\" to finish." << std::endl;
+				std::cout << std::endl;
+
 				while (true)
 				{
-					std::cout << "Page: Sales" << std::endl;
-					std::cout << "Input product name or barcode." << std::endl;
 					std::cin >> input;
 					std::cin.ignore(100, '\n');
 
+					int barcode = atoi(input.c_str());
+
+					if (input == "end")
+					{
+						std::cout << std::endl;
+
+						float total = tax(subtotal);
+
+						std::cout << "Subtotal: $" << subtotal << std::endl;
+						std::cout << "Tax:      $" << total - subtotal << std::endl;
+						std::cout << "Total:    $" << total << std::endl;
+
+						cashier << "Subtotal: $" << subtotal << std::endl;
+						cashier << "Tax:      $" << total - subtotal << std::endl;
+						cashier << "Total:    $" << total << std::endl;
+
+						change(total);
+
+						std::cout << "Change:   $" << total << std::endl;
+						std::cout << "Thank you!" << std::endl;
+
+						cashier << "Change:   $" << total << std::endl;
+						cashier << "Thank you!" << std::endl;
+						std::cout << std::endl;
+						break;
+					}
+
 					for (int i = 0; i < food.barcode; i++)
 					{
-						if (food.barcode == input || food.item[i].pName == input)
+						if (i == barcode || food.item[i].pName == input)
 						{
-							//do something with this
+							std::cout << i << " - " << food.item[i].pName << " - $" << food.item[i].price << std::endl;
+							cashier << i << " - " << food.item[i].pName << " - $" << food.item[i].price << std::endl;
+							std::cout << std::endl;
+							subtotal += food.item[i].price;
 						}
 					}
 				}
 				break;
 
-
 			case 2:
+				//extra or something
+
+			case 3:
 				//print out receipt information
 				std::cout << "Not yet implemented." << std::endl;
 				menu = 1;
 				break;
 
-			case 3:
+			case 4:
 				std::cout << "Page: Additional Options" << std::endl;
 				//additional info
 				break;
+
+			default:
+				std::cout << "Error: Invalid input." << std::endl;
+
 			}
 
 		}
